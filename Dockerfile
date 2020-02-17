@@ -7,13 +7,13 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV HOST="google.com"
-ENV PING_INTERVAL="60"
+ENV PING_INTERVAL="300"
 ENV PING_TIMEOUT="10"
 ENV PING_RETRY="3600"
 ENV PUSHOVER_APP_TOKEN=""
 ENV PUSHOVER_USER_TOKEN=""
-ENV PUSHOVER_TITLE="$HOST is not reachable!"
-ENV PUSHOVER_MESSAGE="$HOST is not reachable!"
+ENV PUSHOVER_TITLE="Online Check"
+ENV PUSHOVER_MESSAGE="google.com is offline!"
 ENV PUSHOVER_PRIORITY="0"
 ENV UID=99
 ENV GID=100
