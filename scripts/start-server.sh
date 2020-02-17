@@ -14,7 +14,9 @@ done
 if wget https://api.pushover.net/1/messages.json --post-data="token=${PUSHOVER_APP_TOKEN}&user=${PUSHOVER_USER_TOKEN}&priority=${PUSHOVER_PRIORITY}&title=${PUSHOVER_TITLE}&message=${PUSHOVER_MESSAGE}" -qO- > /dev/null 2>&1 ; then
         echo "---$(date '+%x %X'): ${HOST} not reachable message sent, retrying after ${PING_RETRY} seconds!---"
         sleep ${PING_RETRY}
+        ./$(basename $0) && exit
 else
         echo "---Can't send message, retrying after ${PING_RETRY} seconds---"
         sleep ${PING_RETRY}
+        ./$(basename $0) && exit
 fi
