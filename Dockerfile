@@ -7,9 +7,9 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 ENV HOST="google.com"
-ENV PING_INTERVAL="10"
+ENV PING_INTERVAL="60"
 ENV PING_TIMEOUT="10"
-ENV PING_RETRY="1800"
+ENV PING_RETRY="3600"
 ENV PUSHOVER_APP_TOKEN=""
 ENV PUSHOVER_USER_TOKEN=""
 ENV PUSHOVER_TITLE="$HOST is not reachable!"
