@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "---Trying to ping: ${HOST} every ${PING_INTERVAL} seconds with a timout of ${PING_TIMEOUT}, retrying if the ping fails after ${PING_RETRY}---"
+echo "---Trying to ping: ${HOST} every ${PING_INTERVAL} seconds with a timout of ${PING_TIMEOUT} seconds, retrying if the ping fails after ${PING_RETRY} seconds---"
 while ping -c 1 -W ${PING_TIMEOUT} "${HOST}" > /dev/null
 do
 	echo "$(date '+%x %X'): ${HOST} is reachable"
