@@ -15,6 +15,8 @@ ENV PUSHOVER_USER_TOKEN=""
 ENV PUSHOVER_TITLE="$HOST is not reachable!"
 ENV PUSHOVER_MESSAGE="$HOST is reachable!"
 ENV PUSHOVER_PRIORITY="0"
+ENV UID=99
+ENV GID=100
 
 RUN useradd -s /bin/bash --uid $UID --gid $GID onlinecheck
 
