@@ -16,7 +16,7 @@ ENV PUSHOVER_TITLE="$HOST is not reachable!"
 ENV PUSHOVER_MESSAGE="$HOST is reachable!"
 ENV PUSHOVER_PRIORITY="0"
 
-RUN useradd --no-create-home -s /bin/bash --uid $UID --gid $GID onlinecheck
+RUN useradd -s /bin/bash --uid $UID --gid $GID onlinecheck
 
 ADD /scripts/ /opt/scripts/
 RUN chmod -R 777 /opt/scripts/ && \
