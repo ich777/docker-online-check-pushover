@@ -6,16 +6,15 @@ echo "---to: ${HOST}, if the host is not reachable---"
 echo "----it will check again in ${PING_RETRY} seconds----"
 echo "-----------------------------------------------------"
 
-sleep infinity
-
-if [ "`ping -i ${PING_INTERVAL} -W ${PING_TIMEOUT} ${HOST}`" ]; then
-	echo "date %+x %+X: ${HOST} is reachable"
+while ping -c 1 -W ${PING_TIMEOUT} "${HOST}" > /dev/null
+do
+        echo "$(date '+%x %X'): ${HOST} is reachable"
+        sleep ${PING_INTERVAL}
+done
+if wget https://api.pushover.net/1/messages.json --post-data="token=${PUSHOVER_APP_TOKEN}&user=${PUSHOVER_USER_TOKEN}&priority=${PUSHOVER_PRIORITY}&title=${PUSHOVER_TITLE}&message=${PUSHOVER_MESSAGE}" -qO- > /dev/null 2>&1 ; then
+        echo "---$(date '+%x %X'): ${HOST} not reachable message sent, retrying after ${PING_RETRY} seconds!---"
+        sleep ${PING_RETRY}
 else
-	if wget https://api.pushover.net/1/messages.json --post-data="token=${PUSHOVER_APP_TOKEN}&user=${PUSHOVER_USER_TOKEN}&priority=${PUSHOVER_PRIORITY}&title=${PUSHOVER_TITLE}&message=${PUSHOVER_MESSAGE}" -qO- > /dev/null 2>&1 & ; then
-		echo "---${HOST} not reachable message sent---"
-		sleep ${PING_RETRY}
-	else
-		echo "---Can't send message, putting server into sleep mode---"
-		sleep infinity
-	fi
+        echo "---Can't send message, retrying after ${PING_RETRY} seconds---"
+        sleep ${PING_RETRY}
 fi
