@@ -17,14 +17,13 @@ ENV PUSHOVER_MESSAGE="google.com is offline!"
 ENV PUSHOVER_PRIORITY="0"
 ENV UID=99
 ENV GID=100
+ENV DATA_PERM=770
+ENV USER="onlinecheck"
 
-RUN useradd -s /bin/bash --uid $UID --gid $GID onlinecheck
+RUN useradd -s /bin/bash $USER
 
 ADD /scripts/ /opt/scripts/
-RUN chmod -R 777 /opt/scripts/ && \
-	chown -R onlinecheck /opt/scripts
-
-USER onlinecheck
+RUN chmod -R 777 /opt/scripts/
 
 #Server Start
-ENTRYPOINT ["/opt/scripts/start-server.sh"]
+ENTRYPOINT ["/opt/scripts/start.sh"]
