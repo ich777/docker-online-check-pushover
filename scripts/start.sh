@@ -17,4 +17,18 @@ fi
 
 echo "---Starting...---"
 chown -R ${UID}:${GID} /opt/scripts
-su ${USER} -c "/opt/scripts/start-server.sh"
+
+term_handler() {
+	kill -SIGTERM "$(pidof ping)"
+	tail --pid="$(pidof ping)" -f 2>/dev/null
+	exit 143;
+}
+
+trap 'kill ${!}; term_handler' SIGTERM
+su ${USER} -c "/opt/scripts/start-server.sh" &
+killpid="$!"
+while true
+do
+	wait $killpid
+	exit 0;
+done
